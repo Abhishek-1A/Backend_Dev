@@ -1,39 +1,36 @@
-const express = require('express')
+const express = require("express");
+
 const app = express();
-
-app.get('/', function(req,res) {
-    res.send('welcome to my hotel.. How i can help you ?')
-})
-
-app.get('/chicken', (req,res) =>{
-    res.send('sure sir iam happy to serve u chicken')
-})
-app.get('/idli', (req,res) =>{
-    var customized_idli ={
-        name: 'rava idli',
-        size: '10 cm diameter',
-        is_sambher: true,
-        is_chutni: false
-    }
-    res.send(customized_idli)
-})
-app.listen(4000, ()=>{
-    console.log('Listioning on port 4000');
+const userModel = require('./usermodeldb')
+app.get("/", (req, res) => {
+  res.send("hey Welcome djkshkjdshfkjh");
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+// craete 
+app.get('/create', async (req,res) =>{
+  let createduser = await userModel.create({
+    name: "Aditi",
+    email: "aditimc@gmail.com",
+    username: "adty"
+  })
+  res.send(createduser);
+})
+// update
+app.get('/update', async(req,res) =>{
+  let updateuser = await userModel.findOneAndUpdate({username: "abkumar"},{name: "Abhishek kumar ji"}, {new: true});
+  res.send(updateuser);
+})
+// read
+app.get("/read", async(req,res) =>{
+  let read=await userModel.find();
+  res.send(read);
+})
+// delete 
+app.get("/dalete", async(req,res) =>{
+  let users = await userModel.findOneAndDelete({username: "adty"});
+  res.send(users);
+})
+app.listen(3000);
 
 // console.log("server file is running");
 
