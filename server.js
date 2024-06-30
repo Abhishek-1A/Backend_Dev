@@ -1,35 +1,41 @@
 const express = require("express");
 
 const app = express();
-const userModel = require('./usermodeldb')
+const userModel = require("./usermodeldb");
 app.get("/", (req, res) => {
   res.send("hey Welcome djkshkjdshfkjh");
 });
 
-// craete 
-app.get('/create', async (req,res) =>{
+// craete
+app.get("/create", async (req, res) => {
   let createduser = await userModel.create({
     name: "Aditi",
     email: "aditimc@gmail.com",
-    username: "adty"
-  })
+    username: "adty",
+  });
   res.send(createduser);
-})
+});
 // update
-app.get('/update', async(req,res) =>{
-  let updateuser = await userModel.findOneAndUpdate({username: "abkumar"},{name: "Abhishek kumar ji"}, {new: true});
+app.get("/update", async (req, res) => {
+  let updateuser = await userModel.findOneAndUpdate(
+    { username: "abkumar" },
+    { name: "Abhishek kumar ji" },
+    { new: true }
+  );
   res.send(updateuser);
-})
+});
 // read
-app.get("/read", async(req,res) =>{
-  let read=await userModel.find();
+app.get("/read", async (req, res) => {
+  let read = await userModel.find();
   res.send(read);
-})
-// delete 
-app.get("/dalete", async(req,res) =>{
-  let users = await userModel.findOneAndDelete({username: "adty"});
+});
+// delete
+app.get("/dalete", async (req, res) => {
+  let users = await userModel.findOneAndDelete({ username: "adty" });
   res.send(users);
-})
+});
+
+
 app.listen(3000);
 
 // console.log("server file is running");
