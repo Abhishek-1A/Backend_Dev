@@ -23,6 +23,8 @@ app.get("/files/:filename", function (req, res) {
     res.render('show', { filename: req.params.filename, filedata: filedata});
   });
 });
+
+
 app.post("/create", function (req, res) {
   fs.writeFile(`./files/${req.body.title.split(' ').join(' ')}.txt`, req.body.details, function(err) {
     res.redirect("/")
