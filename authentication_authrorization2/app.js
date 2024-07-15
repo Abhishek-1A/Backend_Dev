@@ -6,6 +6,7 @@ const cokkieparser = require("cookie-parser");
 const userModel = require("./models/user");
 const bcrypt = require('bcrypt');
 const { hash } = require("crypto");
+const jwt=require('jsonwebtoken');
 
 
 app.set("view engine", "ejs");
@@ -29,9 +30,18 @@ app.post('/create', async (req,res) =>{
         password: hash,
         age
       })
+
+     let token=jwt.sign({email}, "shhhhhhhhhh");
+     res.cookie("token", token);
       res.send(createdUser);
     })
   })
 });
 
+
+
+app.get("/logout" , function(req,res) {
+  res.cookie("token", "");
+  res.redirect("/");
+})
 app.listen(3000);
